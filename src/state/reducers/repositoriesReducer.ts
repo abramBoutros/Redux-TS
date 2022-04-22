@@ -1,48 +1,35 @@
+import { ActionType } from "./../action-types";
+import { Action } from "./../actions";
+
 interface RepositoriesState {
 	loading: boolean;
 	error: string | null;
 	data: string[];
 }
 
-// added RepositoriesState interface as a return type checker and state type for
-// the reducer to make sure that typescript will run a compilation error if
-// the return is not correct at any point of development time
+// added RepositoriesState interface as a return type checker and state
+// type for the reducer to make sure that typescript will run a compilation
+//  error if the return is not correct at any point of development time
 
-//
+// old interface not good enough
 // interface Action {
 // 	type: string;
 // 	payload?: any;
 // }
 
-// more advanced approach
-interface SearchRepositoriesAction {
-	type: "search_repositories";
-}
-interface SearchRepositoriesSuccessAction {
-	type: "search_repositories_success";
-	payload: string[];
-}
-interface SearchRepositoriesErrorAction {
-	type: "search_repositories_error";
-	payload: string;
-}
-
 const reducer = (
 	state: RepositoriesState,
-	action:
-		| SearchRepositoriesAction
-		| SearchRepositoriesSuccessAction
-		| SearchRepositoriesErrorAction
+	action: Action
 ): RepositoriesState => {
 	// switch statements use type-gard just as if statements
 	switch (action.type) {
-		case "search_repositories":
+		case ActionType.SEARCH_REPOSITORIES:
 			// action.payload is not a thing here as it matches
 			// SearchRepositoriesAction interface (no payload for action)
 			return { loading: true, error: null, data: [] };
-		case "search_repositories_success":
+		case ActionType.SEARCH_REPOSITORIES_SUCCESS:
 			return { loading: false, error: null, data: action.payload };
-		case "search_repositories_error":
+		case ActionType.SEARCH_REPOSITORIES_ERROR:
 			return { loading: false, error: action.payload, data: [] };
 
 		default:
