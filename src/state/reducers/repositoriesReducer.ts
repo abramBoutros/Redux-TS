@@ -17,8 +17,14 @@ interface RepositoriesState {
 // 	payload?: any;
 // }
 
-const reducer = (
-	state: RepositoriesState,
+const intialState = {
+	loading: false,
+	error: null,
+	data: [],
+};
+
+const RepositoriesReducer = (
+	state: RepositoriesState = intialState,
 	action: Action
 ): RepositoriesState => {
 	// switch statements use type-gard just as if statements
@@ -37,4 +43,4 @@ const reducer = (
 	}
 };
 
-export default reducer;
+export default RepositoriesReducer;
